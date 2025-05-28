@@ -7,6 +7,9 @@ import { JwtStrategy } from '../dictators/jwt.strategy';
 import { AutenticadorGuard } from './auth.guard';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([Dictator]),
@@ -20,7 +23,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
     }),
   ],
-  providers: [JwtStrategy, AutenticadorGuard],
-  exports: [JwtModule], // Cambia esto - solo exporta JwtModule
+  controllers: [AuthController],
+  providers: [AuthService, JwtStrategy, AutenticadorGuard],
+  exports: [JwtModule],
 })
 export class AuthModule {}
